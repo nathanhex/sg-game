@@ -1,0 +1,7 @@
+# GitHub Pages 使用 Jekyll，通过 exclude 排除不发布的目录
+exclude:
+  - docs
+  - .claude
+  - .cursor
+  - .gitignore
+  - README.md

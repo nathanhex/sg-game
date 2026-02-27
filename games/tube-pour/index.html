@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>试管倒水游戏</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/audio.css">
+</head>
+<body>
+  <div class="bg-decor">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="candy-hill hill-1"></div>
+    <div class="candy-hill hill-2"></div>
+    <div class="candy-hill hill-3"></div>
+  </div>
+
+  <div class="tablet-frame">
+    <div class="app-shell">
+    <header class="toolbar">
+      <p class="level-label">第 <span id="current-level-num">1</span> 关</p>
+      <button type="button" id="btn-settings" class="btn-settings" aria-label="设置">
+        <span class="dock-icon" aria-hidden="true">⚙️</span>
+      </button>
+    </header>
+
+    <main id="tubes-container"></main>
+    </div>
+  </div>
+
+  <nav class="bottom-dock" aria-label="游戏操作">
+    <button type="button" id="btn-restart" aria-label="重新开始">
+      <span class="dock-icon" aria-hidden="true">🔄</span>
+      <span class="dock-label">重开</span>
+    </button>
+    <button type="button" id="btn-levels" aria-label="选择关卡">
+      <span class="dock-icon" aria-hidden="true">🧭</span>
+      <span class="dock-label">选关</span>
+    </button>
+    <button type="button" id="btn-cancel" class="secondary" aria-label="取消选择">
+      <span class="dock-icon" aria-hidden="true">✋</span>
+      <span class="dock-label">取消</span>
+    </button>
+  </nav>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <section id="win-modal" class="modal" hidden>
+    <div class="modal-content modal-win">
+      <div class="celebration-burst" aria-hidden="true">
+        <span class="star star-1">★</span>
+        <span class="star star-2">★</span>
+        <span class="star star-3">★</span>
+        <span class="star star-4">★</span>
+        <span class="star star-5">★</span>
+      </div>
+      <div class="win-badge" aria-hidden="true">🏅</div>
+      <h2>过关啦！</h2>
+      <p class="modal-message" id="win-message" aria-live="polite">太棒了！</p>
+      <div class="modal-actions">
+        <button type="button" id="btn-next">下一关</button>
+        <button type="button" id="btn-replay">再玩一次</button>
+        <button type="button" id="btn-levels-from-win">选关</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="deadlock-modal" class="modal" hidden>
+    <div class="modal-content modal-deadlock">
+      <h2>再试一次</h2>
+      <p class="modal-message">动不了啦，点下面按钮重来</p>
+      <button type="button" id="btn-deadlock-retry">再试一次</button>
+    </div>
+  </section>
+
+  <section id="level-picker" class="modal" hidden>
+    <div class="modal-content modal-levels">
+      <h2>选关</h2>
+      <div id="level-list" class="level-list"></div>
+      <button type="button" id="btn-close-levels">关闭</button>
+    </div>
+  </section>
+
+  <section id="settings-modal" class="modal" hidden>
+    <div class="modal-content modal-settings">
+      <h2>游戏设置</h2>
+      <div class="settings-form">
+        <div class="setting-row">
+          <label class="setting-label">难度</label>
+          <select id="difficulty-select" class="difficulty-select" aria-label="难度选择">
+            <option value="easy">简单</option>
+            <option value="medium" selected>中等</option>
+            <option value="hard">困难</option>
+            <option value="expert">非常困难</option>
+            <option value="custom">自定义</option>
+          </select>
+        </div>
+        <div class="setting-row setting-row-toggle">
+          <label class="setting-label">音效</label>
+          <button type="button" class="toggle-btn" id="toggle-sound" aria-pressed="true" aria-label="音效开关">
+            <span class="toggle-knob"></span>
+          </button>
+        </div>
+        <div class="setting-row setting-row-toggle">
+          <label class="setting-label">语音播报</label>
+          <button type="button" class="toggle-btn" id="toggle-voice" aria-pressed="true" aria-label="语音播报开关">
+            <span class="toggle-knob"></span>
+          </button>
+        </div>
+        <div id="custom-params" class="custom-params">
+        <div class="setting-row">
+          <label class="setting-label">颜色数量</label>
+          <div class="stepper">
+            <button type="button" class="stepper-btn" id="color-minus" aria-label="减少颜色">−</button>
+            <span class="stepper-value" id="color-count">4</span>
+            <button type="button" class="stepper-btn" id="color-plus" aria-label="增加颜色">+</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <label class="setting-label">试管数量</label>
+          <div class="stepper">
+            <button type="button" class="stepper-btn" id="tube-minus" aria-label="减少试管">−</button>
+            <span class="stepper-value" id="tube-count">6</span>
+            <button type="button" class="stepper-btn" id="tube-plus" aria-label="增加试管">+</button>
+          </div>
+        </div>
+        <p class="setting-hint" id="settings-hint">包含 2 个空试管</p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="btn-settings-play">开始游戏</button>
+        <button type="button" id="btn-settings-close">关闭</button>
+      </div>
+    </div>
+  </section>
+
+  <svg id="pour-fx" xmlns="http://www.w3.org/2000/svg"
+       style="position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:165">
+    <defs>
+      <filter id="pour-blur"><feGaussianBlur in="SourceGraphic" stdDeviation="0.7"/></filter>
+    </defs>
+  </svg>
+
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

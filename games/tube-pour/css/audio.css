@@ -1,0 +1,46 @@
+/**
+ * 音效与语音播报相关 UI 样式（设置中的开关等）
+ * 依赖 style.css 中的 CSS 变量与 .setting-row / .setting-label 等基础样式
+ */
+
+.setting-row-toggle .setting-label {
+  margin-right: 12px;
+}
+
+.toggle-btn {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--btn-muted);
+  border: 2px solid var(--btn-muted-border);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.toggle-btn:hover {
+  box-shadow: 0 2px 8px rgba(126, 63, 175, 0.2);
+}
+
+.toggle-btn[aria-pressed="true"] {
+  background: linear-gradient(140deg, var(--btn-main-start), var(--btn-main-end));
+  border-color: rgba(255, 106, 170, 0.5);
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.toggle-btn[aria-pressed="true"] .toggle-knob {
+  transform: translateX(26px);
+}

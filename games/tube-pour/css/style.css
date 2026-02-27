@@ -1,0 +1,1218 @@
+/* ============================================================
+   试管倒水游戏 — 糖果梦境主题 (Candy Dreamland)
+   面向 5-10 岁儿童的高饱和度、柔和圆润 UI
+   ============================================================ */
+
+/* ---------- 1. CSS 变量 / 设计令牌 ---------- */
+:root {
+  --app-vh: 1vh;
+
+  /* 背景渐变 */
+  --bg-top: #FFD4E5;
+  --bg-mid: #FFE0EE;
+  --bg-bottom: #D4F1FF;
+
+  /* 卡片 / 面板 */
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: #E8D0F8;
+
+  /* 文字 */
+  --text-main: #3D2D5C;
+  --text-soft: #5C4A7A;
+  --text-inverse: #fff;
+
+  /* 试管 */
+  --tube-bg: rgba(255, 255, 255, 0.92);
+  --tube-border: #C8A8E8;
+  --tube-width: 80px;
+  --cell-height: 48px;
+  --tube-radius: 22px;
+  --tube-inner-radius: 12px;
+  --tube-bottom-radius: 24px;
+  --tube-head-space: 16px;
+
+  /* 选中态 */
+  --selected-border: #E91E8C;
+  --selected-glow: rgba(233, 30, 140, 0.40);
+  --selected-pulse: rgba(255, 105, 180, 0.30);
+
+  /* 按钮 — 主色粉 */
+  --btn-main-start: #FF8AC3;
+  --btn-main-end: #FF6FA6;
+  --btn-main-shadow: rgba(255, 106, 170, 0.35);
+
+  /* 按钮 — 副色蓝 */
+  --btn-second-start: #8FD4FF;
+  --btn-second-end: #66BDF7;
+
+  /* 按钮 — 柔和 */
+  --btn-muted: #F4EEFC;
+  --btn-muted-border: #DDD0F5;
+
+  /* 提示条 */
+  --toast-bg: #FFCE68;
+  --toast-text: #4A3200;
+
+  /* 弹框遮罩 */
+  --modal-overlay: rgba(69, 45, 105, 0.42);
+
+  /* 平板外框 */
+  --frame-color: #C8A8E8;
+  --frame-inner-bg: linear-gradient(180deg, #FFE8F3 0%, #F8E4FA 40%, #EDE0F6 100%);
+
+  /* 安全区 */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+/* ---------- 2. 全局重置 ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: calc(var(--app-vh) * 100);
+  color: var(--text-main);
+  font-family: "Baloo 2", "Nunito", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(
+    180deg,
+    var(--bg-top) 0%,
+    var(--bg-mid) 40%,
+    var(--bg-bottom) 100%
+  );
+  overflow: hidden;
+  padding:
+    max(12px, var(--safe-top))
+    max(12px, var(--safe-right))
+    max(88px, calc(var(--safe-bottom) + 80px))
+    max(12px, var(--safe-left));
+}
+
+/* ---------- 3. 背景装饰层 ---------- */
+.bg-decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* 云朵 — 棉花糖质感 */
+.cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.97),
+    rgba(255, 240, 250, 0.75)
+  );
+  filter: blur(0.5px);
+  animation: floatCloud 14s ease-in-out infinite;
+}
+
+.cloud-1 {
+  width: 200px;
+  height: 90px;
+  left: 3%;
+  top: 10%;
+  box-shadow:
+    65px -5px 0 -18px rgba(255, 255, 255, 0.85),
+    130px 8px 0 -28px rgba(255, 245, 252, 0.75);
+  animation-delay: 0s;
+}
+
+.cloud-2 {
+  width: 160px;
+  height: 70px;
+  right: 8%;
+  top: 6%;
+  box-shadow: 55px 0 0 -14px rgba(255, 255, 255, 0.88);
+  animation-delay: 2.5s;
+}
+
+.cloud-3 {
+  width: 180px;
+  height: 78px;
+  left: 30%;
+  top: 16%;
+  opacity: 0.85;
+  animation-delay: 5s;
+}
+
+@keyframes floatCloud {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-10px) translateX(6px); }
+}
+
+/* 糖果山丘 — 底部起伏 */
+.candy-hill {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  filter: blur(0.5px);
+}
+
+.hill-1 {
+  left: -6%;
+  width: 46%;
+  height: 26%;
+  background: linear-gradient(
+    180deg,
+    #A8E6CF 0%,
+    #7DD4A8 60%,
+    #6BC99A 100%
+  );
+  opacity: 0.88;
+}
+
+.hill-2 {
+  right: -4%;
+  width: 42%;
+  height: 30%;
+  background: linear-gradient(
+    180deg,
+    #FFD9E8 0%,
+    #FFB8D0 60%,
+    #FFA0C0 100%
+  );
+  opacity: 0.85;
+}
+
+.hill-3 {
+  left: 28%;
+  width: 52%;
+  height: 22%;
+  background: linear-gradient(
+    180deg,
+    #FFECAA 0%,
+    #FFD76E 60%,
+    #F5C842 100%
+  );
+  opacity: 0.78;
+}
+
+/* ---------- 4. 平板外框 ---------- */
+.tablet-frame {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 12px auto;
+  padding: 14px;
+  background: linear-gradient(
+    145deg,
+    #D4BEF0 0%,
+    var(--frame-color) 50%,
+    #BEA4DC 100%
+  );
+  border-radius: 34px;
+  box-shadow:
+    0 22px 52px rgba(100, 70, 140, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(120, 90, 160, 0.15);
+}
+
+/* 屏幕内区 */
+.app-shell {
+  position: relative;
+  max-width: 100%;
+  margin: 0;
+  background: var(--frame-inner-bg);
+  border: none;
+  border-radius: 24px;
+  padding: 14px 18px 18px;
+  min-height: calc(var(--app-vh) * 100 - max(16px, var(--safe-top)) - max(16px, var(--safe-bottom)) - 56px);
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    inset 0 0 50px rgba(255, 200, 230, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+/* ---------- 5. 顶部工具栏 ---------- */
+.toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 8px 2px 8px;
+}
+
+.level-label {
+  margin: 0;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text-main);
+  background: linear-gradient(120deg, #FFF2FA, #F0EAFF);
+  border: 2.5px solid #E3D5FF;
+  box-shadow: 0 4px 14px rgba(146, 92, 198, 0.12);
+}
+
+/* 设置按钮 */
+.btn-settings {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #FFE0F0, #F0D4FF);
+  border: 2.5px solid #E0CCF5;
+  box-shadow: 0 4px 12px rgba(180, 120, 200, 0.18);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-settings .dock-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.btn-settings:hover {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 16px rgba(180, 120, 200, 0.25);
+}
+
+.btn-settings:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+/* ---------- 6. 通用按钮 ---------- */
+button {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus-visible,
+.tube:focus-visible {
+  outline: 3px solid var(--selected-border);
+  outline-offset: 3px;
+}
+
+/* 主操作按钮 — 粉色系 */
+#btn-restart,
+#btn-next,
+#btn-replay,
+#btn-deadlock-retry,
+#btn-settings-play {
+  background: linear-gradient(140deg, var(--btn-main-start), var(--btn-main-end));
+  box-shadow: 0 6px 18px var(--btn-main-shadow);
+}
+
+/* 副操作按钮 — 蓝色系 */
+#btn-levels,
+#btn-levels-from-win,
+#btn-close-levels,
+#btn-settings-close {
+  background: linear-gradient(140deg, var(--btn-second-start), var(--btn-second-end));
+  box-shadow: 0 6px 18px rgba(88, 169, 228, 0.30);
+}
+
+/* 弱化按钮 — 默认态也是浅粉，和 UI 图一致 */
+button.secondary {
+  background: linear-gradient(140deg, #FFB8D8, #FF9EC8);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(255, 140, 190, 0.28);
+}
+
+/* ---------- 7. 试管容器 ---------- */
+#tubes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--tube-width), 1fr));
+  align-items: end;
+  justify-items: center;
+  gap: clamp(14px, 2.6vw, 24px);
+  min-height: 320px;
+  padding: 18px 12px 28px;
+  border-radius: 18px;
+  background: transparent;
+  width: 100%;
+  flex: 1;
+  align-content: center;
+}
+
+/* ---------- 8. 试管 ---------- */
+.tube {
+  position: relative;
+  transform-origin: 50% 100%;
+  width: var(--tube-width);
+  min-height: calc(var(--cell-height) * 4 + var(--tube-head-space));
+  display: flex;
+  flex-direction: column-reverse;
+  padding: var(--tube-head-space) 0 0 0;
+  border-radius:
+    var(--tube-inner-radius)
+    var(--tube-inner-radius)
+    var(--tube-bottom-radius)
+    var(--tube-bottom-radius);
+  /* 半透明玻璃底色：中间几乎透明，两侧略带紫调 */
+  background: linear-gradient(
+    90deg,
+    rgba(230, 220, 248, 0.30) 0%,
+    rgba(255, 255, 255, 0.12) 20%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.10) 80%,
+    rgba(225, 215, 245, 0.25) 100%
+  );
+  border: 2.5px solid var(--tube-border);
+  box-shadow:
+    /* 左侧玻璃高光 */
+    inset 5px 0 10px rgba(255, 255, 255, 0.55),
+    /* 右侧暗边 */
+    inset -4px 0 8px rgba(190, 175, 225, 0.18),
+    /* 底部微光 */
+    inset 0 -4px 10px rgba(200, 185, 240, 0.10),
+    /* 外阴影 */
+    0 0 18px rgba(200, 168, 232, 0.10),
+    0 6px 18px rgba(100, 80, 150, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  overflow: visible;
+}
+
+/* 玻璃反射高光条 — 左侧竖向白色光带 */
+.tube-glass-highlight {
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  bottom: 10px;
+  width: 8px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.55) 15%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(255, 255, 255, 0.50) 85%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 玻璃反射 — 右侧次级光带 */
+.tube-glass-highlight::after {
+  content: "";
+  position: absolute;
+  right: -28px;
+  top: 20%;
+  bottom: 25%;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.20) 30%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* 管口 — 顶部加厚椭圆圆边 */
+.tube::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  top: -7px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.90),
+    rgba(215, 200, 240, 0.80)
+  );
+  border: 2.5px solid var(--tube-border);
+  box-shadow: 0 2px 8px rgba(120, 100, 170, 0.18);
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* 试管 hover */
+.tube:hover:not(.selected) {
+  transform: translateY(-3px);
+  border-color: #B094D8;
+}
+
+/* 选中试管 — 粉色高亮脉动 */
+.tube.selected {
+  border-color: var(--selected-border);
+  border-width: 3px;
+  transform: translateY(-5px) scale(1.06);
+  box-shadow:
+    0 0 0 6px var(--selected-glow),
+    0 14px 26px rgba(233, 30, 140, 0.24);
+  animation: tubeSelectedPulse 1.2s ease-in-out infinite;
+}
+
+.tube.selected::after {
+  content: "\2713";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #FF70B8, #E91E8C);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 28px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(233, 30, 140, 0.45);
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes tubeSelectedPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 6px var(--selected-glow),
+      0 14px 26px rgba(233, 30, 140, 0.24);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px var(--selected-pulse),
+      0 14px 30px rgba(233, 30, 140, 0.32);
+  }
+}
+
+/* 倒水动画态 */
+.tube.pouring-source {
+  z-index: 15;
+  transition: none;
+}
+
+.tube.pouring-target {
+  animation: pourTarget 0.28s ease;
+}
+
+.tube.shake {
+  animation: shake 0.25s ease;
+}
+
+@keyframes pourSource {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-12deg) scale(1.02); }
+  70% { transform: rotate(-8deg) scale(1.01); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes pourTarget {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-6px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* ---------- 9. 试管格子（液体层） ---------- */
+.tube-cell {
+  position: relative;
+  overflow: hidden;
+  height: var(--cell-height);
+  border-radius: 0;
+  transition: height 0.35s ease, background 0.15s ease, transform 0.2s ease;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+
+/* 底部格 — 圆底 */
+.tube-cell:first-child {
+  border-radius: 0 0 var(--tube-bottom-radius) var(--tube-bottom-radius);
+}
+
+/* 顶部格 */
+.tube-cell:last-child {
+  border-radius: var(--tube-inner-radius) var(--tube-inner-radius) 0 0;
+}
+
+.tube-cell.empty {
+  background: transparent;
+  box-shadow: none;
+  border-top: none;
+}
+
+.tube-cell.empty:first-child {
+  box-shadow: none;
+}
+
+/* 液体高光 — 极细的顶部光泽条，不遮盖颜色 */
+.tube-cell.filled::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 3px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+/* 液体暗部 — 极轻微的底边加深 */
+.tube-cell.filled::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+/* 顶层液面 — 轻微的液面反光 */
+.tube-cell.top-liquid {
+  box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.25);
+}
+
+/* ---------- 10. 空试管 ---------- */
+.tube.tube-empty {
+  border-style: dashed;
+  border-color: rgba(200, 168, 232, 0.55);
+  background: linear-gradient(
+    90deg,
+    rgba(230, 220, 248, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 30%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.06) 70%,
+    rgba(225, 215, 245, 0.15) 100%
+  );
+}
+
+/* 选择目标阶段 — 空试管高亮引导 */
+.bottom-dock.is-picking-target ~ #tubes-container .tube.tube-empty,
+.tube.tube-empty.hint-glow {
+  border-color: rgba(255, 112, 184, 0.80);
+  border-style: solid;
+  border-width: 3px;
+  box-shadow: 0 0 0 4px rgba(255, 159, 208, 0.35);
+  animation: emptyTubeHint 1.2s ease-in-out infinite;
+}
+
+@keyframes emptyTubeHint {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(255, 159, 208, 0.35); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 159, 208, 0.20), 0 6px 20px rgba(233, 30, 140, 0.18); }
+}
+
+/* ---------- 11. 底部操作栏 ---------- */
+.bottom-dock {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: max(12px, var(--safe-bottom));
+  z-index: 180;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 253, 255, 0.97),
+    rgba(248, 244, 255, 0.96)
+  );
+  border: 2.5px solid #E8D8F8;
+  box-shadow:
+    0 6px 24px rgba(95, 67, 136, 0.18),
+    0 2px 8px rgba(140, 110, 180, 0.10);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.24s ease, box-shadow 0.24s ease;
+  max-width: calc(100vw - 24px);
+}
+
+.bottom-dock button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 15px;
+  padding: 0 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dock-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.dock-label {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* 选择目标阶段 — 底栏高亮 */
+.bottom-dock.is-picking-target {
+  border-color: #FF9FD0;
+  box-shadow:
+    0 0 0 2px rgba(255, 141, 197, 0.20),
+    0 6px 24px rgba(95, 67, 136, 0.18);
+}
+
+.bottom-dock.is-picking-target #btn-cancel {
+  background: linear-gradient(140deg, #FF8EC6, #FF6CAB);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(255, 106, 170, 0.35);
+}
+
+#btn-cancel:disabled {
+  opacity: 0.38;
+  filter: grayscale(0.2);
+  box-shadow: none;
+}
+
+/* ---------- 12. 提示条 (Toast) ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(100px, calc(var(--safe-bottom) + 94px));
+  transform: translateX(-50%);
+  z-index: 100;
+  max-width: 92%;
+  padding: 14px 30px;
+  border-radius: 20px;
+  border: 3px solid #E6B800;
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.35;
+  box-shadow: 0 8px 26px rgba(168, 123, 31, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.24s, visibility 0.24s;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---------- 13. 弹框通用 ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--modal-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s, visibility 0.28s;
+  z-index: 200;
+}
+
+.modal[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-content {
+  width: min(520px, 92vw);
+  background:
+    radial-gradient(circle at 14% 20%, #ffffff 0, #ffffffcc 36%, #ffffff 100%),
+    #fff;
+  border: 3px solid #EAD0FF;
+  border-radius: 28px;
+  padding: 26px 26px 24px;
+  box-shadow: 0 22px 40px rgba(75, 48, 114, 0.28);
+  animation: modalIn 0.3s ease;
+  max-height: min(78vh, calc(var(--app-vh) * 86));
+  overflow: auto;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.90) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-content h2 {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  color: #8B3DB8;
+  text-shadow: 0 2px 4px rgba(139, 61, 184, 0.12);
+}
+
+/* ---------- 14. 过关弹框 ---------- */
+.modal-win {
+  position: relative;
+  overflow: hidden;
+}
+
+.win-badge {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  display: grid;
+  place-items: center;
+  font-size: 38px;
+  background: radial-gradient(circle at 30% 30%, #FFFBE6, #FFD76E 70%);
+  border: 3px solid #FFC94D;
+  box-shadow: 0 8px 20px rgba(215, 149, 0, 0.22);
+}
+
+.celebration-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  opacity: 0;
+  color: #FFD54F;
+  text-shadow: 0 2px 8px rgba(255, 190, 0, 0.35);
+}
+
+.star-1 { left: 14%; top: 18%; font-size: 18px; }
+.star-2 { right: 16%; top: 14%; font-size: 22px; }
+.star-3 { left: 28%; top: 6%; font-size: 24px; }
+.star-4 { right: 30%; top: 8%; font-size: 16px; }
+.star-5 { left: 50%; top: 2%; font-size: 20px; transform: translateX(-50%); }
+
+#win-modal[data-open="true"] .star {
+  animation: starBurst 0.85s ease-out forwards;
+}
+
+#win-modal[data-open="true"] .star-2 { animation-delay: 0.08s; }
+#win-modal[data-open="true"] .star-3 { animation-delay: 0.16s; }
+#win-modal[data-open="true"] .star-4 { animation-delay: 0.22s; }
+#win-modal[data-open="true"] .star-5 { animation-delay: 0.28s; }
+
+#win-modal[data-open="true"] .win-badge {
+  animation: badgePop 0.65s cubic-bezier(.17, .89, .32, 1.29);
+}
+
+@keyframes starBurst {
+  0% { opacity: 0; transform: translateY(8px) scale(0.4); }
+  35% { opacity: 1; transform: translateY(-8px) scale(1.08); }
+  100% { opacity: 0; transform: translateY(-18px) scale(0.9); }
+}
+
+@keyframes badgePop {
+  0% { transform: scale(0.2) rotate(-18deg); opacity: 0; }
+  60% { transform: scale(1.12) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.modal-message {
+  margin: 0 0 20px;
+  text-align: center;
+  color: var(--text-main);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modal-actions button {
+  min-width: 110px;
+  border-radius: 999px;
+  padding: 0 22px;
+  height: 48px;
+}
+
+/* ---------- 15. 设置弹框 ---------- */
+.modal-settings .settings-form {
+  margin: 16px 0 20px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #FFF6FB, #F5F0FF);
+  border: 2.5px solid #EAD8FF;
+}
+
+.setting-label {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.stepper-btn {
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50% !important;
+  background: linear-gradient(140deg, var(--btn-main-start), var(--btn-main-end));
+  box-shadow: 0 4px 12px var(--btn-main-shadow);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+.stepper-btn:hover {
+  transform: scale(1.1);
+}
+
+.stepper-btn:active {
+  transform: scale(0.95);
+}
+
+.stepper-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+  box-shadow: none;
+}
+
+.stepper-btn:disabled:hover {
+  transform: none;
+}
+
+.stepper-value {
+  min-width: 54px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  color: #7E3FAF;
+}
+
+.difficulty-select {
+  font-size: 17px;
+  font-weight: 700;
+  color: #7E3FAF;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 2.5px solid #E7D1FF;
+  background: linear-gradient(120deg, #FFF6FB, #F5F0FF);
+  min-width: 140px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237E58A0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.custom-params.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.setting-hint {
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-soft);
+  padding: 4px 0;
+}
+
+/* 音效/语音开关样式见 audio.css */
+
+/* ---------- 16. 选关弹框 ---------- */
+.modal-levels .level-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
+  gap: 10px;
+  max-height: 50vh;
+  overflow: auto;
+  margin-bottom: 14px;
+  padding-right: 4px;
+}
+
+.modal-levels .level-list button {
+  min-height: 60px;
+  border-radius: 16px;
+  background: linear-gradient(140deg, #FFE4F2, #EBD9FF);
+  color: #7E58A0;
+  border: 2.5px solid #E7D1FF;
+  box-shadow: 0 5px 12px rgba(118, 82, 165, 0.12);
+  font-size: 18px;
+  padding: 10px 8px;
+}
+
+.modal-levels .level-list button.current {
+  background: linear-gradient(145deg, #FF8BC4, #FF6CA7);
+  color: #fff;
+  border-color: #FF79B4;
+  box-shadow: 0 6px 16px rgba(255, 106, 170, 0.30);
+}
+
+/* ---------- 17. 响应式 — 手机竖屏 ---------- */
+@media (max-width: 720px) {
+  :root {
+    --tube-width: clamp(64px, 14vw, 80px);
+    --cell-height: clamp(40px, 9vw, 48px);
+    --tube-bottom-radius: 20px;
+  }
+
+  body {
+    padding:
+      max(6px, var(--safe-top))
+      max(6px, var(--safe-right))
+      max(90px, calc(var(--safe-bottom) + 82px))
+      max(6px, var(--safe-left));
+  }
+
+  .app-shell {
+    margin: 4px auto;
+    padding: 10px 10px 12px;
+    border-radius: 22px;
+  }
+
+  .toolbar {
+    justify-content: center;
+    padding-top: 4px;
+  }
+
+  .level-label {
+    width: 100%;
+    text-align: center;
+    font-size: clamp(18px, 5.6vw, 24px);
+    margin-bottom: 2px;
+  }
+
+  #tubes-container {
+    min-height: 220px;
+    padding: 14px 8px 16px;
+    border-radius: 18px;
+  }
+
+  .modal-content {
+    border-radius: 22px;
+    padding: 20px 18px 18px;
+  }
+}
+
+/* ---------- 18. 响应式 — 小手机 ---------- */
+@media (max-width: 480px) {
+  :root {
+    --tube-width: clamp(56px, 18vw, 72px);
+    --cell-height: clamp(36px, 10vw, 46px);
+    --tube-bottom-radius: 18px;
+  }
+
+  .cloud {
+    opacity: 0.75;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 14px;
+    min-height: 42px;
+  }
+
+  #tubes-container {
+    gap: 14px;
+    min-height: 220px;
+    grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+  }
+
+  .modal-content h2 {
+    font-size: 26px;
+  }
+
+  .modal-message {
+    font-size: 16px;
+  }
+
+  .modal-actions button {
+    min-width: 90px;
+    height: 44px;
+    padding: 0 16px;
+  }
+
+  .bottom-dock {
+    gap: 6px;
+    padding: 5px 6px;
+  }
+
+  .bottom-dock button {
+    min-height: 40px;
+    height: 40px;
+    font-size: 13px;
+    padding: 0 14px;
+    gap: 4px;
+  }
+
+  .dock-icon {
+    font-size: 14px;
+  }
+
+  .dock-label {
+    font-size: 13px;
+  }
+}
+
+/* ---------- 19. 响应式 — 平板 ---------- */
+@media (min-width: 768px) and (max-width: 1100px) {
+  :root {
+    --tube-width: clamp(72px, 8vw, 84px);
+    --cell-height: clamp(42px, 5vw, 48px);
+    --tube-bottom-radius: 22px;
+  }
+
+  .tablet-frame {
+    max-width: 96%;
+  }
+
+  .app-shell {
+    border-radius: 22px;
+  }
+
+  #tubes-container {
+    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+    min-height: 320px;
+  }
+}
+
+/* ---------- 20. 触控优化 ---------- */
+@media (pointer: coarse) {
+  .tube:hover:not(.selected),
+  button:hover {
+    transform: none;
+    filter: none;
+  }
+
+  .tube.selected {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  #tubes-container {
+    scroll-margin-top: 12px;
+  }
+
+  .bottom-dock button:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ---------- 21. 横屏矮窗 ---------- */
+@media (max-height: 520px) and (orientation: landscape) {
+  body {
+    padding-bottom: max(68px, calc(var(--safe-bottom) + 60px));
+  }
+
+  .toolbar {
+    padding-top: 2px;
+    padding-bottom: 4px;
+  }
+
+  .level-label {
+    font-size: 17px;
+    padding: 5px 10px;
+  }
+
+  .bg-decor {
+    opacity: 0.55;
+  }
+
+  #tubes-container {
+    min-height: 210px;
+    padding-top: 8px;
+    padding-bottom: 10px;
+  }
+
+  .bottom-dock {
+    gap: 6px;
+    padding: 4px 6px;
+  }
+
+  .bottom-dock button {
+    min-height: 36px;
+    height: 36px;
+    font-size: 12px;
+    padding: 0 12px;
+    gap: 4px;
+  }
+
+  .bottom-dock .dock-icon {
+    font-size: 13px;
+  }
+
+  .bottom-dock .dock-label {
+    font-size: 11px;
+  }
+
+  .modal-content {
+    max-height: 86vh;
+  }
+}
