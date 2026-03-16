@@ -17,6 +17,7 @@
     "#FDCB6E",  /* 蜂蜜金 */
     "#6C88DA"   /* 矢车菊蓝 */
   ];
+  /* LEVELS 由 generate-100-levels.js 生成：候选局面生成 + 求解器验收 */
   var LEVELS = [
     { id: 1, capacity: 4,
       tubes: [[1, 2, 1], [2, 1, 2], []],
@@ -28,296 +29,296 @@
       tubes: [[1, 2, 3], [3, 1, 2], [2, 3, 1], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 4, capacity: 4,
-      tubes: [[1, 2, 1, 1], [2, 1, 2], [], [2]],
+      tubes: [[1, 2, 2, 1], [2, 1, 1, 2], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 5, capacity: 4,
-      tubes: [[1, 2], [2, 1, 1, 1], [2, 2]],
+      tubes: [[2, 1, 2, 2], [2, 1, 1, 1], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 6, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 1], [1], [1]],
+      tubes: [[1, 1, 2, 2], [2, 1, 1, 2], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 7, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [1, 1, 1]],
+      tubes: [[2, 2, 2, 1], [1, 2, 1, 1], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 8, capacity: 4,
-      tubes: [[1, 2, 1], [2, 1, 2, 2], [1], []],
+      tubes: [[2, 1, 1, 2], [2, 1, 2, 1], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 9, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 1], [1, 1]],
+      tubes: [[2, 1, 1, 1], [1, 2, 2, 2], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 10, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 1, 1], [1], []],
+      tubes: [[1, 1, 2, 2], [2, 1, 2, 1], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 11, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], []],
+      tubes: [[2, 1, 1, 1], [2, 2, 1, 2], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 12, capacity: 4,
-      tubes: [[1, 2, 1, 1], [2, 1], [2, 2], []],
+      tubes: [[1, 1, 2, 1], [2, 2, 1, 2], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 13, capacity: 4,
-      tubes: [[1, 1, 1, 1], [], [2, 2, 2, 2]],
+      tubes: [[1, 2, 2, 2], [2, 1, 1, 1], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 14, capacity: 4,
-      tubes: [[1], [2, 1, 1, 1], [2, 2, 2], []],
+      tubes: [[1, 2, 2, 1], [2, 1, 1, 2], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 15, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], []],
+      tubes: [[2, 1, 1, 1], [1, 2, 2, 2], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 16, capacity: 4,
-      tubes: [[1], [2, 1, 1, 1], [], [2, 2, 2]],
+      tubes: [[1, 2, 2, 1], [1, 1, 2, 2], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 17, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], []],
+      tubes: [[2, 1, 1, 1], [1, 2, 2, 2], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 18, capacity: 4,
-      tubes: [[1, 2], [2, 1, 1, 1], [2, 2], []],
+      tubes: [[1, 2, 2, 1], [1, 1, 2, 2], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 19, capacity: 4,
-      tubes: [[2, 2, 2, 2], [], [1, 1, 1, 1]],
+      tubes: [[2, 2, 1, 2], [2, 1, 1, 1], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 20, capacity: 4,
-      tubes: [[1, 2, 1, 1], [1], [], [2, 2, 2]],
+      tubes: [[2, 1, 1, 2], [1, 2, 2, 1], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 21, capacity: 4,
-      tubes: [[1, 1, 1], [2, 1, 2, 2], [2], []],
+      tubes: [[2, 1, 1, 1], [2, 2, 1, 2], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 22, capacity: 4,
-      tubes: [[1, 2, 3, 3], [2, 2, 2], [3, 1, 1, 1], [3], []],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[2, 2, 1, 2], [1, 1, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 23, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [1, 1, 1], []],
+      tubes: [[1, 1, 2, 1], [2, 2, 2, 1], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 24, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3], [3, 1, 1, 1], [3], []],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[2, 2, 1, 2], [1, 1, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 25, capacity: 4,
-      tubes: [[1, 2, 1, 1], [2, 1], [2], [2]],
+      tubes: [[2, 1, 2, 2], [2, 1, 1, 1], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 26, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3, 1, 1, 1], [], []],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[2, 1, 1, 2], [1, 2, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 27, capacity: 4,
-      tubes: [[1], [2, 1, 1, 1], [2, 2, 2], []],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[1, 1, 1, 2], [3, 2, 1, 3], [3, 2, 3, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 28, capacity: 4,
-      tubes: [[1, 2, 2, 2], [], [3, 1, 1, 1], [2], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[2, 1, 1, 2], [2, 1, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 29, capacity: 4,
-      tubes: [[1, 1, 1], [2, 1, 2, 2], [], [2]],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[2, 3, 2, 2], [3, 1, 1, 1], [2, 1, 3, 3], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 30, capacity: 4,
-      tubes: [[1], [2, 3, 1, 1], [3, 1, 2, 2], [3, 3], [2]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[1, 2, 1, 1], [2, 1, 2, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 31, capacity: 4,
-      tubes: [[1, 2, 2, 2], [1, 1, 1], [], [2]],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[2, 1, 1, 2], [2, 3, 3, 3], [2, 1, 3, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 32, capacity: 4,
-      tubes: [[1, 2, 3, 3], [2, 3, 3], [], [1, 1, 1], [2, 2]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[1, 2, 1, 2], [2, 2, 1, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 33, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [1, 1, 1], []],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[2, 1, 3, 1], [2, 3, 3, 3], [2, 1, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 34, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [], [3], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[1, 1, 2, 1], [2, 2, 1, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 35, capacity: 4,
-      tubes: [[], [2, 1, 2, 2], [2], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[2, 3, 3, 3], [2, 3, 1, 2], [1, 1, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 36, capacity: 4,
-      tubes: [[1], [2, 3, 3, 3], [3, 1, 1, 1], [], [2, 2, 2]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[1, 1, 2, 2], [1, 2, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 37, capacity: 4,
-      tubes: [[2], [2, 1, 2, 2], [1, 1, 1], []],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[2, 2, 2, 1], [3, 1, 2, 3], [1, 1, 3, 3], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 38, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [], [1, 1, 1], [3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[1, 1, 2, 1], [2, 2, 1, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 39, capacity: 4,
-      tubes: [[], [2, 1, 2, 2], [2], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[1, 2, 3, 1], [2, 1, 1, 2], [2, 3, 3, 3], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 40, capacity: 4,
-      tubes: [[2], [2, 3, 3, 3], [3, 1, 2, 2], [1, 1, 1], []],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[1, 2, 2, 1], [2, 1, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 41, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[3, 3, 3, 1], [2, 2, 1, 2], [3, 1, 1, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 42, capacity: 4,
-      tubes: [[1, 2, 2, 2], [], [3, 1, 1, 1], [2], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[2, 2, 1, 2], [1, 1, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 43, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [1, 1, 1], []],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[1, 1, 1, 2], [3, 2, 2, 3], [2, 3, 3, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 44, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 1, 1, 1], [3, 3, 3], []],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[2, 1, 1, 2], [1, 2, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 45, capacity: 4,
-      tubes: [[2, 2, 2], [2, 1, 1, 1], [1], []],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[2, 2, 1, 1], [2, 3, 3, 3], [3, 1, 1, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 46, capacity: 4,
-      tubes: [[1, 2, 2, 2], [3, 3, 3], [3, 1, 1, 1], [2], []],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+      tubes: [[2, 1, 1, 2], [1, 2, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 47, capacity: 4,
-      tubes: [[1, 2, 2, 2], [1, 1, 1], [], [2]],
-      colors: ["#FF6B6B", "#4ECDC4"] },
+      tubes: [[2, 1, 3, 1], [3, 2, 2, 2], [1, 1, 3, 3], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 48, capacity: 4,
-      tubes: [[1, 2, 3, 3], [2], [3, 1, 1, 1], [2, 2], [3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
-    { id: 49, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [1, 1, 1], []],
+      tubes: [[1, 2, 2, 1], [1, 1, 2, 2], [], []],
       colors: ["#FF6B6B", "#4ECDC4"] },
-    { id: 50, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3], [], [1, 1, 1]],
+    { id: 49, capacity: 4,
+      tubes: [[2, 3, 3, 3], [1, 3, 1, 2], [2, 2, 1, 1], [], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
+    { id: 50, capacity: 4,
+      tubes: [[2, 1, 1, 2], [1, 2, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 51, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 3, 3, 3], [3, 4, 4, 4], [4], [5, 5, 5, 5], [2, 2, 2]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+      tubes: [[1, 2, 1, 1], [3, 3, 1, 3], [3, 2, 2, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 52, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 1, 1, 1], [6, 6, 6]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[2, 2, 1, 1], [1, 2, 2, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 53, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+      tubes: [[1, 1, 2, 2], [3, 3, 3, 2], [2, 3, 1, 1], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 54, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 1, 1, 1], [6, 6, 6]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[1, 2, 2, 1], [2, 1, 1, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4"] },
     { id: 55, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5], [5, 5, 5]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+      tubes: [[2, 1, 1, 1], [3, 2, 3, 3], [2, 3, 1, 2], [], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 56, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 4, 4, 4], [4, 5, 5, 5], [5], [6, 6, 6, 6], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[1, 3, 1, 2], [2, 1, 2, 3], [3, 2, 3, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 57, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 3, 3, 3], [3, 4, 4, 4], [4], [5, 5, 5, 5], [2, 2, 2]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+      tubes: [[4, 1, 4, 3], [3, 4, 1, 2], [1, 2, 3, 4], [3, 2, 2, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 58, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 1, 1, 1], [6, 6, 6]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
-    { id: 59, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 5, 5, 5], [5], [4, 4, 4]],
+      tubes: [[3, 5, 3, 1], [1, 2, 1, 4], [4, 3, 4, 2], [2, 1, 2, 5], [5, 4, 5, 3], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+    { id: 59, capacity: 4,
+      tubes: [[2, 1, 2, 3], [3, 2, 3, 1], [1, 3, 1, 2], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 60, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3, 4, 4, 4], [4, 5, 5, 5], [5], [6, 6, 6, 6], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[2, 1, 4, 1], [1, 2, 3, 2], [4, 1, 2, 3], [3, 4, 4, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 61, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 3, 3, 3], [3], [4, 4, 4, 4], [5, 5, 5, 5], [2, 2, 2]],
+      tubes: [[5, 3, 5, 2], [4, 5, 2, 4], [3, 2, 3, 5], [1, 4, 1, 3], [2, 1, 4, 1], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 62, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 4, 4, 4], [4, 5, 5, 5], [5, 6, 6, 6], [6], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[2, 3, 1, 3], [1, 2, 3, 2], [3, 1, 2, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 63, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 3, 3, 3], [3, 4, 4, 4], [4], [5, 5, 5, 5], [2, 2, 2]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+      tubes: [[1, 4, 3, 3], [4, 2, 1, 4], [2, 1, 2, 3], [1, 3, 4, 2], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 64, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 4, 4, 4], [4, 5, 5, 5], [5], [6, 6, 6, 6], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
-    { id: 65, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [1, 1, 1]],
+      tubes: [[2, 5, 3, 5], [1, 3, 2, 1], [5, 2, 4, 2], [4, 1, 5, 4], [3, 4, 1, 3], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+    { id: 65, capacity: 4,
+      tubes: [[2, 1, 3, 2], [3, 2, 1, 3], [1, 3, 2, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 66, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 6, 6, 6], [6], [5, 5, 5]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[1, 4, 3, 2], [2, 1, 4, 4], [2, 3, 1, 4], [3, 2, 1, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 67, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4], [5, 5, 5, 5], [4, 4, 4]],
+      tubes: [[2, 5, 2, 3], [1, 3, 5, 1], [4, 2, 1, 2], [3, 4, 3, 4], [5, 1, 4, 5], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 68, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 1, 1, 1], [6, 6, 6]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[1, 2, 1, 3], [3, 1, 3, 2], [2, 3, 2, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 69, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 1, 1, 1], [5, 5, 5]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+      tubes: [[3, 2, 4, 1], [2, 3, 1, 2], [1, 4, 3, 1], [4, 4, 2, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 70, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 1, 1, 1], [6, 6, 6]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
-    { id: 71, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 5, 5, 5], [5], [4, 4, 4]],
+      tubes: [[3, 2, 5, 3], [1, 3, 2, 1], [4, 1, 4, 2], [5, 4, 1, 5], [2, 5, 3, 4], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+    { id: 71, capacity: 4,
+      tubes: [[1, 2, 3, 2], [2, 3, 1, 3], [3, 1, 2, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 72, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3, 4, 4, 4], [4, 5, 5, 5], [5], [6, 6, 6, 6], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[2, 4, 3, 4], [1, 3, 2, 2], [3, 2, 1, 1], [4, 1, 4, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 73, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 1, 1, 1], [5, 5, 5]],
+      tubes: [[3, 5, 4, 2], [1, 3, 5, 3], [5, 4, 3, 1], [2, 1, 2, 5], [4, 2, 1, 4], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 74, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 1, 1, 1], [6, 6, 6]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[2, 3, 1, 3], [3, 1, 2, 1], [1, 2, 3, 2], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 75, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3], [4, 4, 4, 4], [5, 5, 5, 5], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+      tubes: [[2, 1, 3, 3], [4, 3, 2, 4], [3, 2, 4, 1], [1, 4, 1, 2], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 76, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 5, 5, 5], [5, 6, 6, 6], [6], [4, 4, 4]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
-    { id: 77, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 1, 1, 1], [5, 5, 5]],
+      tubes: [[4, 1, 3, 2], [3, 2, 4, 3], [2, 3, 1, 5], [5, 4, 5, 4], [1, 5, 2, 1], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
+    { id: 77, capacity: 4,
+      tubes: [[3, 2, 3, 1], [1, 3, 1, 2], [2, 1, 2, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 78, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[4, 2, 1, 4], [1, 3, 2, 1], [3, 1, 3, 2], [2, 3, 4, 4], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D"] },
     { id: 79, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3], [4, 4, 4, 4], [5, 5, 5, 5], [3, 3, 3]],
+      tubes: [[4, 1, 3, 2], [5, 3, 4, 1], [1, 5, 2, 4], [2, 4, 5, 3], [3, 2, 1, 5], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 80, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 4, 4, 4], [4, 5, 5, 5], [5], [6, 6, 6, 6], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[2, 3, 1, 3], [2, 1, 2, 1], [3, 2, 3, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C"] },
     { id: 81, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 6, 6, 6], [6, 1, 1, 1], [5, 5, 5]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[4, 4, 3, 1], [3, 5, 1, 2], [5, 4, 5, 1], [3, 2, 1, 2], [2, 5, 4, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 82, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [7, 7, 7, 7], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
-    { id: 83, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 5, 5, 5], [5], [6, 6, 6, 6], [4, 4, 4]],
+      tubes: [[5, 4, 2, 5], [4, 3, 1, 3], [1, 6, 6, 5], [6, 1, 3, 2], [2, 5, 6, 4], [3, 2, 4, 1], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
-    { id: 84, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [7, 7, 7, 7], [2, 2, 2]],
+    { id: 83, capacity: 4,
+      tubes: [[2, 3, 1, 6], [6, 6, 7, 2], [1, 5, 2, 4], [5, 2, 3, 7], [7, 4, 4, 5], [4, 7, 6, 1], [1, 3, 5, 3], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
+    { id: 84, capacity: 4,
+      tubes: [[3, 5, 2, 2], [2, 5, 3, 4], [1, 4, 1, 3], [5, 3, 1, 4], [5, 2, 1, 4], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 85, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 5, 5, 5], [5, 6, 6, 6], [6], [4, 4, 4]],
+      tubes: [[2, 3, 2, 6], [5, 6, 1, 5], [3, 1, 4, 1], [6, 5, 3, 2], [6, 4, 4, 2], [1, 3, 5, 4], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
     { id: 86, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2, 3, 3, 3], [3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [7, 7, 7, 7], [1, 1, 1]],
+      tubes: [[4, 6, 7, 7], [5, 6, 7, 4], [3, 5, 2, 5], [1, 7, 5, 1], [4, 1, 3, 2], [2, 3, 1, 3], [6, 2, 4, 6], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
     { id: 87, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[4, 3, 5, 3], [2, 5, 3, 1], [5, 4, 2, 4], [1, 1, 4, 5], [1, 2, 3, 2], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 88, capacity: 4,
-      tubes: [[1, 2, 2, 2], [2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [7, 7, 7, 7], [1, 1, 1]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
-    { id: 89, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5], [6, 6, 6, 6], [5, 5, 5]],
+      tubes: [[2, 1, 3, 6], [2, 3, 6, 2], [1, 4, 1, 3], [3, 5, 5, 4], [6, 5, 2, 1], [4, 6, 4, 5], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
-    { id: 90, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 7, 7, 7], [7, 1, 1, 1], [6, 6, 6]],
+    { id: 89, capacity: 4,
+      tubes: [[5, 2, 6, 3], [2, 4, 5, 1], [2, 3, 7, 7], [6, 1, 7, 6], [4, 5, 4, 2], [3, 1, 7, 4], [1, 6, 3, 5], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
+    { id: 90, capacity: 4,
+      tubes: [[4, 5, 2, 4], [5, 2, 5, 3], [3, 1, 1, 5], [2, 1, 4, 2], [3, 4, 3, 1], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 91, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 6, 6, 6], [6, 1, 1, 1], [5, 5, 5]],
+      tubes: [[6, 3, 6, 5], [1, 5, 3, 3], [1, 6, 1, 6], [3, 4, 5, 4], [4, 5, 4, 2], [2, 2, 1, 2], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
     { id: 92, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 3, 3, 3], [3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [7, 7, 7, 7], [2, 2, 2]],
+      tubes: [[1, 4, 2, 6], [3, 6, 7, 4], [5, 1, 5, 5], [7, 2, 3, 1], [2, 5, 1, 7], [6, 3, 6, 3], [4, 7, 4, 2], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
     { id: 93, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 5, 5, 5], [5], [6, 6, 6, 6], [4, 4, 4]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[3, 4, 2, 1], [1, 5, 5, 2], [4, 2, 3, 5], [2, 3, 1, 4], [5, 1, 4, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 94, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5], [6, 6, 6, 6], [7, 7, 7, 7], [5, 5, 5]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
-    { id: 95, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 6, 6, 6], [6, 1, 1, 1], [5, 5, 5]],
+      tubes: [[1, 2, 5, 4], [4, 5, 6, 1], [3, 4, 2, 6], [5, 6, 3, 5], [6, 1, 1, 2], [2, 3, 4, 3], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
-    { id: 96, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 5, 5, 5], [5, 6, 6, 6], [6], [7, 7, 7, 7], [4, 4, 4]],
+    { id: 95, capacity: 4,
+      tubes: [[2, 1, 4, 6], [3, 7, 6, 1], [4, 6, 2, 5], [6, 3, 1, 7], [1, 4, 3, 2], [5, 5, 7, 4], [7, 2, 5, 3], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
+    { id: 96, capacity: 4,
+      tubes: [[3, 2, 2, 3], [5, 1, 5, 1], [4, 1, 3, 1], [5, 4, 3, 4], [2, 2, 4, 5], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 97, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 3, 3, 3], [3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [2, 2, 2]],
+      tubes: [[3, 6, 1, 6], [2, 5, 6, 3], [2, 3, 4, 5], [5, 2, 3, 4], [1, 1, 4, 2], [6, 1, 5, 4], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
     { id: 98, capacity: 4,
-      tubes: [[1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6], [7, 7, 7, 7], [1, 1, 1]],
+      tubes: [[2, 1, 6, 3], [1, 4, 1, 4], [7, 3, 7, 5], [5, 5, 3, 7], [6, 2, 4, 2], [3, 7, 2, 1], [4, 6, 5, 6], []],
       colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] },
     { id: 99, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 4, 4, 4], [4, 5, 5, 5], [5], [6, 6, 6, 6], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] },
+      tubes: [[4, 5, 1, 4], [2, 1, 4, 2], [5, 3, 2, 5], [1, 4, 3, 1], [5, 2, 3, 3], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC"] },
     { id: 100, capacity: 4,
-      tubes: [[1, 1, 1, 1], [2, 2, 2, 2], [3, 4, 4, 4], [4, 5, 5, 5], [5], [6, 6, 6, 6], [7, 7, 7, 7], [3, 3, 3]],
-      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D", "#FF9F43"] }
+      tubes: [[4, 3, 1, 4], [5, 2, 6, 1], [6, 5, 4, 2], [6, 6, 2, 1], [3, 1, 5, 3], [2, 4, 3, 5], []],
+      colors: ["#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D", "#C084FC", "#FF6B9D"] }
   ];
 
   var currentLevelIndex = 0;
@@ -345,161 +346,59 @@
   var MAX_TUBES = 14;
   var isCustomLevel = false;
 
-  /** 难度档位 → 参数范围（儿童关卡设计 2026-02-27） */
-  var DIFFICULTY_PRESETS = {
-    easy:   { numColors: [2, 2],     numTubes: [3, 4],     scrambleSteps: [4, 8]   },
-    medium: { numColors: [2, 3],     numTubes: [4, 5],     scrambleSteps: [8, 16]  },
-    hard:   { numColors: [3, 5],     numTubes: [5, 7],     scrambleSteps: [16, 35] },
-    expert: { numColors: [5, 7],     numTubes: [6, 8],     scrambleSteps: [35, 55] }
-  };
+  var LEVEL_GENERATOR = window.TubePourLevelGenerator;
 
-  function pickInRange(arr) {
-    if (Array.isArray(arr) && arr.length === 2) {
-      var lo = arr[0], hi = arr[1];
-      return lo + Math.floor(Math.random() * (hi - lo + 1));
-    }
-    return arr;
-  }
+  /** 难度档位 → 参数范围（由共享生成模块提供） */
+  var DIFFICULTY_PRESETS = LEVEL_GENERATOR.RUNTIME_PRESETS;
 
-  /** 从档位解析 (numColors, numTubes, scrambleSteps) */
   function resolvePresetParams(presetKey) {
-    var p = DIFFICULTY_PRESETS[presetKey];
-    if (!p) return null;
-    return {
-      numColors: pickInRange(p.numColors),
-      numTubes: pickInRange(p.numTubes),
-      scrambleSteps: pickInRange(p.scrambleSteps)
-    };
+    return LEVEL_GENERATOR.resolvePresetParams(presetKey, Math.random);
   }
 
-  /** 可解种子状态：C 根满管循环排列 + (T-C) 空管 */
-  function getSeedState(numColors, numTubes, capacity) {
-    capacity = capacity || 4;
-    var tubes = [];
-    for (var i = 0; i < numColors; i++) {
-      var tube = [];
-      for (var k = 0; k < capacity; k++) {
-        tube.push((i + k) % numColors + 1);
-      }
-      tubes.push(tube);
+  function syncSettingsFromPreset(presetKey) {
+    var presetParams = resolvePresetParams(presetKey);
+    if (!presetParams) return;
+    settingsColorCount = presetParams.numColors;
+    settingsTubeCount = presetParams.numTubes;
+    if (presetKey === "hard" || presetKey === "expert") {
+      settingsTubeCount = settingsColorCount + 1;
+    } else {
+      settingsTubeCount = Math.max(settingsTubeCount, settingsColorCount + 1);
     }
-    for (var e = 0; e < numTubes - numColors; e++) tubes.push([]);
-    return tubes;
   }
 
-  function topSegmentLengthScramble(tube) {
-    if (!tube || tube.length === 0) return 0;
-    var color = tube[tube.length - 1];
-    var count = 0;
-    for (var i = tube.length - 1; i >= 0 && tube[i] === color; i--) count++;
-    return count;
+  function getCurrentLevelData() {
+    return isCustomLevel ? customLevel : LEVELS[currentLevelIndex];
   }
 
-  function getReversePourOptions(tubes, capacity) {
-    var options = [];
-    for (var from = 0; from < tubes.length; from++) {
-      if (tubes[from].length === 0) continue;
-      var srcTop = tubes[from][tubes[from].length - 1];
-      var segLen = topSegmentLengthScramble(tubes[from]);
-      for (var to = 0; to < tubes.length; to++) {
-        if (to === from) continue;
-        if (tubes[to].length >= capacity) continue;
-        var canReceive = tubes[to].length === 0 || tubes[to][tubes[to].length - 1] === srcTop;
-        if (!canReceive) continue;
-        var free = capacity - tubes[to].length;
-        var amount = Math.min(segLen, free);
-        if (amount > 0) options.push({ from: from, to: to, amount: amount });
-      }
-    }
-    return options;
-  }
-
-  function performReversePour(tubes, from, to, amount) {
-    var seg = [];
-    for (var i = 0; i < amount; i++) seg.unshift(tubes[from].pop());
-    for (var i = 0; i < amount; i++) tubes[to].push(seg[i]);
-  }
-
-  function countSingleColorTubes(tubes) {
-    var count = 0;
-    for (var i = 0; i < tubes.length; i++) {
-      var t = tubes[i];
-      if (t.length < 2) continue;
-      var first = t[0];
-      var same = true;
-      for (var j = 1; j < t.length; j++) {
-        if (t[j] !== first) { same = false; break; }
-      }
-      if (same) count++;
-    }
-    return count;
-  }
-
-  function deepCloneTubesForScramble(tubes) {
-    return tubes.map(function (row) { return row.slice(); });
+  if (settingsDifficulty !== "custom") {
+    syncSettingsFromPreset(settingsDifficulty);
   }
 
   /**
-   * 生成可解随机关卡：种子状态 + 反向搅乱。
-   * 支持 (numColors, numTubes, scrambleSteps?) 或从档位解析。
-   */
-  function generateSolvableLevel(numColors, numTubes, scrambleSteps) {
-    var capacity = 4;
-    numTubes = Math.max(numTubes, numColors + 1);
-    if (scrambleSteps == null) {
-      scrambleSteps = Math.max(4, Math.min(40, (numColors - 1) * 8 + Math.floor(Math.random() * 12)));
-    }
-    var tubes = getSeedState(numColors, numTubes, capacity);
-    var steps = Math.max(4, scrambleSteps);
-    var seedOffset = 0;
-    var rnd = function () { return Math.random(); };
-
-    while (seedOffset < 300) {
-      tubes = getSeedState(numColors, numTubes, capacity);
-      var stepsToUse = Math.max(4, Math.floor(steps * (1 - seedOffset * 0.01)));
-      for (var s = 0; s < stepsToUse; s++) {
-        var options = getReversePourOptions(tubes, capacity);
-        if (options.length === 0) break;
-        var best = [];
-        var bestCount = -1;
-        for (var o = 0; o < options.length; o++) {
-          var opt = options[o];
-          var next = deepCloneTubesForScramble(tubes);
-          performReversePour(next, opt.from, opt.to, opt.amount);
-          var c = countSingleColorTubes(next);
-          if (bestCount < 0 || c < bestCount) {
-            bestCount = c;
-            best = [opt];
-          } else if (c === bestCount) {
-            best.push(opt);
-          }
-        }
-        var opt = best[Math.floor(rnd() * best.length)];
-        performReversePour(tubes, opt.from, opt.to, opt.amount);
-      }
-      if (!isLevelComplete(tubes)) break;
-      seedOffset++;
-    }
-
-    return {
-      id: -1,
-      capacity: capacity,
-      tubes: tubes,
-      colors: PALETTE.slice(0, numColors)
-    };
-  }
-
-  /**
-   * 根据档位或自定义参数生成可解关卡。
-   * 若 presetKey 有效则忽略 numColors/numTubes。
+   * 根据当前参数生成可解关卡。
+   * presetKey 仅决定是否启用高难硬约束；档位参数抽样由设置流负责。
    */
   function generateRandomLevel(numColors, numTubes, presetKey) {
     if (presetKey && DIFFICULTY_PRESETS[presetKey]) {
-      var p = resolvePresetParams(presetKey);
-      return generateSolvableLevel(p.numColors, p.numTubes, p.scrambleSteps);
+      var strictHard = presetKey === "hard" || presetKey === "expert";
+      return LEVEL_GENERATOR.generateCustomLevel({
+        id: -1,
+        numColors: numColors,
+        numTubes: numTubes,
+        hardConstraints: strictHard,
+        forceOneEmpty: strictHard,
+        random: Math.random
+      });
     }
-    var steps = Math.max(8, Math.min(30, (numColors - 1) * 6 + Math.floor(Math.random() * 10)));
-    return generateSolvableLevel(numColors, numTubes, steps);
+    return LEVEL_GENERATOR.generateCustomLevel({
+      id: -1,
+      numColors: numColors,
+      numTubes: numTubes,
+      hardConstraints: numColors >= 3 && numTubes <= (numColors + 1),
+      forceOneEmpty: numTubes <= (numColors + 1),
+      random: Math.random
+    });
   }
 
   function updateViewportUnit() {
@@ -581,7 +480,9 @@
     var src = currentTubes[sourceIdx];
     var dst = currentTubes[targetIdx];
     if (!src || src.length === 0) return false;
-    var capacity = LEVELS[currentLevelIndex].capacity;
+    var level = getCurrentLevelData();
+    if (!level) return false;
+    var capacity = level.capacity;
     if (dst.length >= capacity) return false;
     var srcColor = src[src.length - 1];
     if (dst.length === 0) return true;
@@ -590,7 +491,9 @@
 
   function getPourAmount(sourceIdx, targetIdx) {
     var srcLen = getTopSegmentLength(currentTubes, sourceIdx);
-    var capacity = LEVELS[currentLevelIndex].capacity;
+    var level = getCurrentLevelData();
+    if (!level) return 0;
+    var capacity = level.capacity;
     var dstFree = capacity - currentTubes[targetIdx].length;
     return Math.min(srcLen, dstFree);
   }
@@ -781,7 +684,7 @@
       GameAudio.playSound("pour", { duration: trailDuration / 1000 });
       var colorId = currentTubes[sourceIndex] && currentTubes[sourceIndex].length > 0
         ? currentTubes[sourceIndex][currentTubes[sourceIndex].length - 1] : 1;
-      var colors = getColors(LEVELS[currentLevelIndex]);
+      var colors = getColors(getCurrentLevelData());
       var pourColor = colors[colorId - 1] || DEFAULT_COLORS[colorId - 1] || "#FF6B6B";
       animatePourStream(dstRect, rotateDeg, pourColor, trailDuration, srcRect.width, surfaceY);
     }, pourStartMs);
@@ -993,7 +896,7 @@
   }
 
   function renderTubes() {
-    var level = LEVELS[currentLevelIndex];
+    var level = getCurrentLevelData();
     if (!level) return;
     var capacity = level.capacity;
     var colors = getColors(level);
@@ -1070,10 +973,16 @@
 
   function loadCustomLevel() {
     var level;
-    if (settingsDifficulty === "custom") {
-      level = generateRandomLevel(settingsColorCount, settingsTubeCount, null);
-    } else {
-      level = generateRandomLevel(null, null, settingsDifficulty);
+    try {
+      if (settingsDifficulty === "custom") {
+        level = generateRandomLevel(settingsColorCount, settingsTubeCount, null);
+      } else {
+        syncSettingsFromPreset(settingsDifficulty);
+        level = generateRandomLevel(settingsColorCount, settingsTubeCount, settingsDifficulty);
+      }
+    } catch (err) {
+      showToast("这次没生成出来，再试一次吧");
+      return;
     }
     var result = validateLevel(level);
     if (!result.ok) {
@@ -1082,9 +991,7 @@
     }
     isCustomLevel = true;
     customLevel = level;
-    /* 将自定义关卡临时挂载到 LEVELS 末尾以复用现有逻辑 */
-    currentLevelIndex = LEVELS.length;
-    LEVELS[currentLevelIndex] = level;
+    currentLevelIndex = -1;
     currentTubes = deepCloneTubes(level.tubes);
     selectedTubeIndex = null;
     setModalOpen("win-modal", false);
@@ -1101,7 +1008,7 @@
   }
 
   function onTubeClick(index) {
-    var level = LEVELS[currentLevelIndex];
+    var level = getCurrentLevelData();
     if (!level) return;
     if (document.getElementById("win-modal").getAttribute("data-open") === "true") return;
     if (document.getElementById("deadlock-modal").getAttribute("data-open") === "true") return;
@@ -1321,14 +1228,7 @@
         haptic("tap");
         settingsDifficulty = this.value;
         if (settingsDifficulty !== "custom") {
-          var p = DIFFICULTY_PRESETS[settingsDifficulty];
-          if (p) {
-            var nc = pickInRange(p.numColors);
-            var nt = pickInRange(p.numTubes);
-            nt = Math.max(nt, nc + 1);
-            settingsColorCount = nc;
-            settingsTubeCount = nt;
-          }
+          syncSettingsFromPreset(settingsDifficulty);
         }
         updateSettingsUI();
       });

@@ -1,235 +1,11 @@
 /**
- * 生成 100 关关卡数据（反向搅乱保证可解）。
+ * 生成 100 关关卡数据（候选局面生成 + 正向求解器验收）。
+ * 设计文档: docs/plans/2026-03-04-tube-pour-level-design-and-generation.md
  * 运行: node games/tube-pour/tools/generate-100-levels.js
  * 输出可替换 games/tube-pour/js/game.js 中的 LEVELS 数组。
  */
 
-var PALETTE = [
-  "#FF6B6B", "#4ECDC4", "#95E86C", "#FFD93D",
-  "#C084FC", "#FF6B9D", "#FF9F43", "#54A0FF",
-  "#5CD5E0", "#F093FB", "#FDCB6E", "#6C88DA"
-];
-
-function seededRandom(seed) {
-  var s = seed | 0;
-  return function () {
-    s = (s * 1103515245 + 12345) >>> 0;
-    return (s % 0x10000) / 0x10000;
-  };
-}
-
-/** 可解的混合种子状态：C 根满管按循环排列 + (T-C) 空管 */
-function getSeedState(numColors, numTubes, capacity) {
-  capacity = capacity || 4;
-  var tubes = [];
-  for (var i = 0; i < numColors; i++) {
-    var tube = [];
-    for (var k = 0; k < capacity; k++) {
-      tube.push((i + k) % numColors + 1);
-    }
-    tubes.push(tube);
-  }
-  for (var e = 0; e < numTubes - numColors; e++) tubes.push([]);
-  return tubes;
-}
-
-function topSegmentLength(tube) {
-  if (!tube || tube.length === 0) return 0;
-  var color = tube[tube.length - 1];
-  var count = 0;
-  for (var i = tube.length - 1; i >= 0 && tube[i] === color; i--) count++;
-  return count;
-}
-
-/** 反向倾倒选项：从 from 取顶部一段放到 to（用于从种子状态搅乱，保证可解） */
-function getReversePourOptions(tubes, capacity) {
-  var options = [];
-  for (var from = 0; from < tubes.length; from++) {
-    if (tubes[from].length === 0) continue;
-    var srcTop = tubes[from][tubes[from].length - 1];
-    var segLen = topSegmentLength(tubes[from]);
-    for (var to = 0; to < tubes.length; to++) {
-      if (to === from) continue;
-      if (tubes[to].length >= capacity) continue;
-      var canReceive = tubes[to].length === 0 || tubes[to][tubes[to].length - 1] === srcTop;
-      if (!canReceive) continue;
-      var free = capacity - tubes[to].length;
-      var amount = Math.min(segLen, free);
-      if (amount > 0) options.push({ from: from, to: to, amount: amount });
-    }
-  }
-  return options;
-}
-
-function performReversePour(tubes, from, to, amount) {
-  var seg = [];
-  for (var i = 0; i < amount; i++) seg.unshift(tubes[from].pop());
-  for (var i = 0; i < amount; i++) tubes[to].push(seg[i]);
-}
-
-/** 统计「整管同色」的试管数（长度>=2 且全部同色），用于尽量让开局更混合 */
-function countSingleColorTubes(tubes) {
-  var count = 0;
-  for (var i = 0; i < tubes.length; i++) {
-    var t = tubes[i];
-    if (t.length < 2) continue;
-    var first = t[0];
-    var same = true;
-    for (var j = 1; j < t.length; j++) {
-      if (t[j] !== first) { same = false; break; }
-    }
-    if (same) count++;
-  }
-  return count;
-}
-
-/** 与 game.js 过关判定一致：每管空或单色，且同色只在一管中 */
-function isLevelComplete(tubes) {
-  var colorToTube = {};
-  for (var i = 0; i < tubes.length; i++) {
-    var t = tubes[i];
-    if (t.length === 0) continue;
-    var first = t[0];
-    for (var j = 1; j < t.length; j++) {
-      if (t[j] !== first) return false;
-    }
-    if (colorToTube[first] !== undefined && colorToTube[first] !== i) return false;
-    colorToTube[first] = i;
-  }
-  return true;
-}
-
-function deepCloneTubes(tubes) {
-  return tubes.map(function (row) { return row.slice(); });
-}
-
-/** 根据关卡号返回 (numColors, numTubes)；仅用于 4–100 关 */
-function getParams(levelId) {
-  if (levelId <= 20) {
-    var n = levelId - 1;
-    return { numColors: 2, numTubes: n % 2 === 0 ? 3 : 4 };
-  }
-  if (levelId <= 50) {
-    var n2 = levelId - 21;
-    return { numColors: 2 + (n2 % 2), numTubes: 4 + (n2 % 2) };
-  }
-  if (levelId <= 80) {
-    var n3 = levelId - 51;
-    var colors = 5 + (n3 % 2);
-    return { numColors: colors, numTubes: colors + 1 };
-  }
-  var n4 = levelId - 81;
-  var colors = 6 + (n4 % 2);
-  return { numColors: colors, numTubes: colors + 1 };
-}
-
-/** 搅乱步数：随关卡递增；困难/挑战段约 2 倍步数 */
-function getScrambleSteps(levelId) {
-  if (levelId <= 10) return 4 + (levelId % 4);
-  if (levelId <= 30) return 8 + (levelId % 6);
-  if (levelId <= 50) return 12 + (levelId % 8);
-  if (levelId <= 80) return 32 + (levelId % 12);
-  return 44 + (levelId % 14);
-}
-
-function generateLevel(levelId) {
-  if (levelId === 1) {
-    return { id: 1, capacity: 4, tubes: [[1, 2, 1], [2, 1, 2], []], colors: PALETTE.slice(0, 2) };
-  }
-  if (levelId === 2) {
-    return { id: 2, capacity: 4, tubes: [[1, 2], [2, 1], [1, 2], []], colors: PALETTE.slice(0, 2) };
-  }
-  if (levelId === 3) {
-    return { id: 3, capacity: 4, tubes: [[1, 2, 3], [3, 1, 2], [2, 3, 1], []], colors: PALETTE.slice(0, 3) };
-  }
-
-  var capacity = 4;
-  var params = getParams(levelId);
-  var numColors = params.numColors;
-  var numTubes = params.numTubes;
-  var tubes = getSeedState(numColors, numTubes, capacity);
-  var rnd = seededRandom(levelId * 7919);
-  var steps = getScrambleSteps(levelId);
-
-  for (var s = 0; s < steps; s++) {
-    var options = getReversePourOptions(tubes, capacity);
-    if (options.length === 0) break;
-    var best = [];
-    var bestCount = -1;
-    for (var o = 0; o < options.length; o++) {
-      var opt = options[o];
-      var next = deepCloneTubes(tubes);
-      performReversePour(next, opt.from, opt.to, opt.amount);
-      var c = countSingleColorTubes(next);
-      if (bestCount < 0 || c < bestCount) {
-        bestCount = c;
-        best = [opt];
-      } else if (c === bestCount) {
-        best.push(opt);
-      }
-    }
-    var opt = best[Math.floor(rnd() * best.length)];
-    performReversePour(tubes, opt.from, opt.to, opt.amount);
-  }
-
-  /* 若搅乱后恰好是过关状态，换种子并减少步数重试，避免选关进入即过关 */
-  var seedOffset = 0;
-  var stepsToUse = steps;
-  while (isLevelComplete(tubes) && seedOffset < 300) {
-    seedOffset++;
-    tubes = getSeedState(numColors, numTubes, capacity);
-    rnd = seededRandom(levelId * 7919 + seedOffset * 2654435761);
-    stepsToUse = Math.max(10, Math.floor(steps * 0.6) - seedOffset * 3);
-    for (var s = 0; s < stepsToUse; s++) {
-      var options = getReversePourOptions(tubes, capacity);
-      if (options.length === 0) break;
-      var best = [];
-      var bestCount = -1;
-      for (var o = 0; o < options.length; o++) {
-        var opt = options[o];
-        var next = deepCloneTubes(tubes);
-        performReversePour(next, opt.from, opt.to, opt.amount);
-        var c = countSingleColorTubes(next);
-        if (bestCount < 0 || c < bestCount) {
-          bestCount = c;
-          best = [opt];
-        } else if (c === bestCount) {
-          best.push(opt);
-        }
-      }
-      var opt = best[Math.floor(rnd() * best.length)];
-      performReversePour(tubes, opt.from, opt.to, opt.amount);
-    }
-  }
-
-  return {
-    id: levelId,
-    capacity: capacity,
-    tubes: tubes,
-    colors: PALETTE.slice(0, numColors)
-  };
-}
-
-function validateLevel(level) {
-  var capacity = level.capacity;
-  var tubes = level.tubes;
-  if (!tubes || tubes.length < 2) return false;
-  var colorCount = {};
-  var hasNonFull = false;
-  for (var i = 0; i < tubes.length; i++) {
-    var t = tubes[i];
-    if (t.length < capacity) hasNonFull = true;
-    if (t.length > capacity) return false;
-    for (var j = 0; j < t.length; j++) {
-      var c = t[j];
-      colorCount[c] = (colorCount[c] || 0) + 1;
-    }
-  }
-  for (var k in colorCount) {
-    if (colorCount[k] > capacity) return false;
-  }
-  return true;
-}
+var core = require("./level-generator-core.js");
 
 function formatTube(arr) {
   return "[" + arr.join(", ") + "]";
@@ -247,9 +23,22 @@ function formatLevel(level) {
 
 var levels = [];
 for (var id = 1; id <= 100; id++) {
-  var level = generateLevel(id);
-  if (!validateLevel(level)) {
-    console.error("validate failed for level " + id);
+  var level = core.generateLevelByRules(id);
+  var validity = core.validateLevel(level);
+  if (!validity.ok) {
+    console.error("validate failed for level " + id + ": " + validity.message);
+    process.exit(1);
+  }
+  if (core.isLevelComplete(level.tubes)) {
+    console.error("level " + id + " must not start complete");
+    process.exit(1);
+  }
+  if (id >= 56 && core.maxSegmentLength(level.tubes) > 2) {
+    console.error("level " + id + " violates hard max segment length");
+    process.exit(1);
+  }
+  if (id >= 56 && core.countSingleColorTubes(level.tubes) > 0) {
+    console.error("level " + id + " still has single-color tubes");
     process.exit(1);
   }
   levels.push(level);

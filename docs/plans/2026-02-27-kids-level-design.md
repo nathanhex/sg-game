@@ -16,7 +16,7 @@
 **约束：**
 
 - 沿用现有 `validateLevel`、`isLevelComplete`、数据结构（capacity=4 等）。
-- 所有随机生成的关卡必须**可解**（采用「种子状态 + 反向搅乱」策略，与 `generate-100-levels.js` 一致）。
+- 所有随机生成的关卡必须**可解**（采用「候选局面生成 + 求解器验收」策略，与新版 `generate-100-levels.js` 设计一致）。
 - 现有 100 关线性流程保留，新增难度档位选择与随机模式作为可选入口。
 
 ---
@@ -29,7 +29,7 @@
 |------------|----------|--------|--------|--------|--------------|--------------------------|
 | 简单       | 3–5 岁   | 2      | 3–4    | 1–2    | 4–8          | 2 色、布局直观、几步可解 |
 | 中等       | 5–7 岁   | 2–3    | 4–5    | 1–2    | 8–16         | 引入第 3 色、需少量规划  |
-| 困难       | 7–9 岁   | 3–5    | 5–7    | 1      | 16–35        | 多色、仅 1 空管、需规划  |
+| 困难       | 7–9 岁   | 3–5    | 4–6    | 1      | 16–35        | 多色、仅 1 空管、需规划  |
 | 非常困难   | 9–10 岁  | 5–7    | 6–8    | 1      | 35–55        | 6–7 色、高搅乱、深度规划 |
 
 ### 2.2 设计原则
@@ -72,7 +72,7 @@
 var DIFFICULTY_PRESETS = {
   easy:    { numColors: 2,     numTubes: [3, 4],     scrambleSteps: [4, 8]   },
   medium:  { numColors: [2,3], numTubes: [4, 5],     scrambleSteps: [8, 16]  },
-  hard:    { numColors: [3,5], numTubes: [5, 7],     scrambleSteps: [16, 35] },
+  hard:    { numColors: [3,5], numTubes: [4, 6],     scrambleSteps: [16, 35] },
   expert:  { numColors: [5,7], numTubes: [6, 8],     scrambleSteps: [35, 55] }
 };
 ```
@@ -83,14 +83,14 @@ var DIFFICULTY_PRESETS = {
 
 **问题**：当前 `game.js` 中 `generateRandomLevel` 使用 Fisher-Yates 洗牌，可能生成**不可解**的初始状态。
 
-**方案**：采用与 `tools/generate-100-levels.js` 相同的「种子状态 + 反向搅乱」策略：
+**方案**：采用与 `tools/generate-100-levels.js` 一致的「候选局面生成 + 求解器验收」策略：
 
-1. 构造可解的种子状态：每根满管为 1..C 的循环排列，空管数 = T - C。
-2. 从种子出发，随机执行若干步「反向倾倒」，得到搅乱后的初始状态。
-3. 搅乱步数在档位给定的 `scrambleSteps` 范围内随机。
-4. 禁止「进入即过关」：若搅乱后恰好过关，换种子或减少步数重试。
+1. 直接构造满足档位要求的候选开局，控制颜色分散度、连续段长度与空管数量。
+2. 用与正式关卡一致的混合度门槛筛掉明显偏易或模板化的候选局面。
+3. 使用正向求解器验证候选局面可解；不可解则继续重试。
+4. 禁止「进入即过关」：若候选局面恰好过关，直接丢弃并重生。
 
-可将 `generate-100-levels.js` 中的 `getSeedState`、`getReversePourOptions`、`performReversePour`、`countSingleColorTubes`、`isLevelComplete` 等逻辑抽取为共享模块，或在前端以简化实现内联到 `game.js`，供 `loadCustomLevel` 调用。
+可将 `generate-100-levels.js` 中的候选构造、状态序列化、合法移动枚举、求解与质量评分等逻辑抽取为共享模块，或在前端以简化实现内联到 `game.js`，供 `loadCustomLevel` 调用。
 
 ---
 
@@ -114,8 +114,8 @@ var DIFFICULTY_PRESETS = {
 
 ## 6. 实现任务拆分
 
-1. **抽取/复用反向搅乱逻辑**：将 `generate-100-levels.js` 中与可解生成相关的函数抽成可被 `game.js` 调用的逻辑（或复制精简版到 `game.js`）。
-2. **替换 `generateRandomLevel`**：改为基于种子 + 反向搅乱的可解生成，支持 `(numColors, numTubes, scrambleSteps)` 参数。
+1. **抽取/复用候选生成与求解校验逻辑**：将 `generate-100-levels.js` 中与候选布局构造、合法移动枚举、求解验证相关的函数抽成可被 `game.js` 调用的逻辑（或复制精简版到 `game.js`）。
+2. **替换 `generateRandomLevel`**：改为基于“候选局面生成 + 正向求解器验收”的可解生成，支持 `(numColors, numTubes)` 参数，并按档位施加高难约束。
 3. **新增难度档位配置与映射**：定义 `DIFFICULTY_PRESETS`，实现档位 → 参数的映射函数。
 4. **设置弹框 UI**：新增难度选择控件，联动 stepper 的启用/禁用及默认值。
 5. **选关分组（可选）**：为关卡增加 `difficulty` 或按 ID 区间分组，更新选关列表展示。
