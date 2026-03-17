@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>2048</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
   <link href="style/main.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
@@ -14,11 +16,20 @@
 
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 </head>
 <body>
   <script src="js/i18n.js"></script>
+  <div class="bg-decor">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="candy-hill hill-1"></div>
+    <div class="candy-hill hill-2"></div>
+    <div class="candy-hill hill-3"></div>
+  </div>
   <div class="container">
+    <button type="button" class="back-to-list" aria-label="返回游戏列表">← 返回</button>
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">
@@ -29,11 +40,11 @@
 
     <div class="above-game">
       <p class="game-intro"><script>document.write(i18n.get('intro'))</script></p>
-      <div id="night">
-            <a id="nightbtn"><img src="style/night.png"></a>
+      <div class="game-actions">
+        <div id="night"><a id="nightbtn"><img src="style/night.png" alt="夜间模式"></a></div>
+        <a class="restart-button"><script>document.write(i18n.get('new_game'))</script></a>
+        <a class="undo-button"><script>document.write(i18n.get('undo'))</script></a>
       </div>
-      <a class="restart-button"><script>document.write(i18n.get('new_game'))</script></a>
-      <a class="undo-button"><script>document.write(i18n.get('undo'))</script></a>      
     </div>
 
     <div class="game-container">
@@ -93,5 +104,25 @@
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
   <script src="js/nightmode.js"></script>
+  <script>
+    (function() {
+      var back = document.querySelector('.back-to-list');
+      if (!back) return;
+      var done = false;
+      function go(e) {
+        if (e) e.preventDefault();
+        if (done) return;
+        done = true;
+        try {
+          var url = new URL('../../index.html', window.location.href).href;
+          (window.top !== window.self ? window.top : window).location.href = url;
+        } catch (err) {
+          window.location.href = '../../index.html';
+        }
+      }
+      back.addEventListener('click', go);
+      back.addEventListener('touchend', go, { passive: false });
+    })();
+  </script>
 </body>
 </html>

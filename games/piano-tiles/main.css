@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+body {
+    background-color: rgba(58, 129, 134, 0.87);
+}
+#c1 {
+    
+}
+#div1 {
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: rgba(48, 90, 57, 0.7);
+    text-align: center;
+    display: none;
+}
+#btn1 {
+    background-color: bisque;
+    box-sizing: border-box;
+    border: 1px solid greenyellow;
+    padding: 10px;
+    width:100px;
+    height:40px;
+    border-radius: 15px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -20px;
+    margin-left: -50px;
+}
